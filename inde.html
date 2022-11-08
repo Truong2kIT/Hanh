@@ -29,7 +29,7 @@
             padding-top: 340px;
             z-index: 999;
             top: 0;
-            box-shadow: 5px 10px 15px 10px pink;
+/*             box-shadow: 5px 10px 15px 10px pink; */
             font-size: 50px;
             font-family: 'Courier New', Courier, monospace;
         }
@@ -340,7 +340,9 @@
        event.preventDefault();
     }
 });
-   
+   document.addEventListener(‘contextmenu’,
+event => event.preventDefault()
+);
         </script>
 </BODY>
 
