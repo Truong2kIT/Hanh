@@ -1,6 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
 <HEAD>
     <TITLE> Nguyễn Hạnh </TITLE>
     <META NAME="Generator" CONTENT="EditPlus">
@@ -8,13 +7,26 @@
     <META NAME="Keywords" CONTENT="">
     <META NAME="Description" CONTENT="">
     <style>
+    <style>
         html,
         body {
             height: 100%;
             padding: 0;
             margin: 0;
-            background-image: url('312668602_478028050976182_1210904276070127392_n.jpg');
-            font :Brush Script MT;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
         }
 
         canvas {
@@ -23,97 +35,172 @@
             height: 100%;
         }
 
-        h1 {
-            color: #ffff;
-            text-align: center;
-            padding-top: 340px;
-            z-index: 999;
-            top: 0;
-/*             box-shadow: 5px 10px 15px 10px pink; */
-            font-size: 50px;
-            font-family: 'Courier New', Courier, monospace;
+        #pinkboard {
+            position: relative;
+            margin: auto;
+            height: 500px;
+            width: 500px;
+            animation: animate 1.3s infinite;
         }
-       
 
-        h1 {
+        #pinkboard:before,
+        #pinkboard:after {
+            content: '';
+            position: absolute;
+            background: #ff5ca4;
+            width: 100px;
+            height: 160px;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+        }
+
+        #pinkboard:before {
+            left: 100px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+                0 10px 10px rgba(0, 0, 0, 0.22);
+        }
+
+        #pinkboard:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: scale(1);
+            }
+
+            30% {
+                transform: scale(0.8);
+            }
+
+            60% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+
+
+
+        .center-text {
             animation: colorBackground 0.5s infinite;
-            -webkit-animation: colorBackground 5s infinite;
+            -webkit-animation: colorBackground 0.5s infinite;
             -moz-animation: colorBackground 5s infinite;
             -o-animation: colorBackground 0.5s infinite
         }
+
         @keyframes colorBackground {
             0% {
-            color: #00FF00;
+                color: #00FF00;
             }
-            20% {
-            color: #00FFFF;
-            }
-            60% {
-                color: #008000;
+
+            10% {
+                color: rgb(180, 20, 46);
                 }
-            80% {
-            color: #008080;
+
+            20% {
+                color: #00FFFF;
             }
-            100% {
+
+           40% {
                 color: pink;
                 }
+
+            50% {
+                color: rgb(50, 193, 21);
             }
-    
-            .menu:hover {
+
+            60% {
+                color: rgb(5, 20, 84);
+            }
+
+            70% {
+                color: #9ca813;
+            }
+
+            80% {
+                color: rgb(221, 221, 37);
+            }
+
+            90% {
+                color: #2b4646;
+            }
+
+            100% {
+                color: pink;
+            }
+        }
+
+        .menu:hover {
             color: red;
-            }
-            .menu:active {
+        }
+
+        .menu:active {
             background: green;
-            }
-
+        }
     </style>
-</HEAD>
+</head>
 
-<BODY>
-     
-    
-
-    <canvas id="pinkboard">
-
-    </canvas>
-    <h1 id="name"><marquee scrollamount="200" scrolldelay="1000">
-        <span>Nguyễn Hạnh cần tìm người yêu. Liên hệ Fb : Nth.Hani kiếm 10 người yêu hihi
-        </span>
-        </marquee></h1>
-    <audio id="player" controls autoplay loop style="height: 50px;width: 100px;">
-        <source src="Cuoi-Cung-Thi-Jack.mp3" type="audio/mp3">
-    </audio>
+<body>
+    <div class="box">
+        <canvas id="pinkboard"></canvas>
+    </div>
     <script>
-//          document.addEventListener(‘contextmenu’,
-// event => event.preventDefault()
-// );
         /*
-        
-       * Settings
-       */
-
+         * Settings
+         */
         var settings = {
             particles: {
-                length: 500, // maximum amount of particles
+                length: 2000, // maximum amount of particles
                 duration: 2, // particle duration in sec
                 velocity: 100, // particle velocity in pixels/sec
-                effect: -0.75, // play with this for a nice effect
-                size: 30, // particle size in pixels
-            },
+                effect: -1.3, // play with this for a nice effect
+                size: 13 // particle size in pixels
+            }
         };
-
         /*
          * RequestAnimationFrame polyfill by Erik Möller
          */
-        (function () { var b = 0; var c = ["ms", "moz", "webkit", "o"]; for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) { window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"]; window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"] || window[c[a] + "CancelRequestAnimationFrame"] } if (!window.requestAnimationFrame) { window.requestAnimationFrame = function (h, e) { var d = new Date().getTime(); var f = Math.max(0, 16 - (d - b)); var g = window.setTimeout(function () { h(d + f) }, f); b = d + f; return g } } if (!window.cancelAnimationFrame) { window.cancelAnimationFrame = function (d) { clearTimeout(d) } } }());
-
+        (function () {
+            var b = 0;
+            var c = ['ms', 'moz', 'webkit', 'o'];
+            for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) {
+                window.requestAnimationFrame = window[c[a] + 'RequestAnimationFrame'];
+                window.cancelAnimationFrame =
+                    window[c[a] + 'CancelAnimationFrame'] ||
+                    window[c[a] + 'CancelRequestAnimationFrame'];
+            }
+            if (!window.requestAnimationFrame) {
+                window.requestAnimationFrame = function (h, e) {
+                    var d = new Date().getTime();
+                    var f = Math.max(0, 16 - (d - b));
+                    var g = window.setTimeout(function () {
+                        h(d + f);
+                    }, f);
+                    b = d + f;
+                    return g;
+                };
+            }
+            if (!window.cancelAnimationFrame) {
+                window.cancelAnimationFrame = function (d) {
+                    clearTimeout(d);
+                };
+            }
+        })();
         /*
          * Point class
          */
         var Point = (function () {
             function Point(x, y) {
-                this.x = (typeof x !== 'undefined') ? x : 0;
-                this.y = (typeof y !== 'undefined') ? y : 0;
+                this.x = typeof x !== 'undefined' ? x : 0;
+                this.y = typeof y !== 'undefined' ? y : 0;
             }
             Point.prototype.clone = function () {
                 return new Point(this.x, this.y);
@@ -134,7 +221,6 @@
             };
             return Point;
         })();
-
         /*
          * Particle class
          */
@@ -163,15 +249,20 @@
             };
             Particle.prototype.draw = function (context, image) {
                 function ease(t) {
-                    return (--t) * t * t + 1;
+                    return --t * t * t + 1;
                 }
                 var size = image.width * ease(this.age / settings.particles.duration);
                 context.globalAlpha = 1 - this.age / settings.particles.duration;
-                context.drawImage(image, this.position.x - size / 2, this.position.y - size / 2, size, size);
+                context.drawImage(
+                    image,
+                    this.position.x - size / 2,
+                    this.position.y - size / 2,
+                    size,
+                    size
+                );
             };
             return Particle;
         })();
-
         /*
          * ParticlePool class
          */
@@ -207,17 +298,17 @@
                 if (firstFree < firstActive) {
                     for (i = firstActive; i < particles.length; i++)
                         particles[i].update(deltaTime);
-                    for (i = 0; i < firstFree; i++)
-                        particles[i].update(deltaTime);
+                    for (i = 0; i < firstFree; i++) particles[i].update(deltaTime);
                 }
 
                 // remove inactive particles
-                while (particles[firstActive].age >= duration && firstActive != firstFree) {
+                while (
+                    particles[firstActive].age >= duration &&
+                    firstActive != firstFree
+                ) {
                     firstActive++;
                     if (firstActive == particles.length) firstActive = 0;
                 }
-
-
             };
             ParticlePool.prototype.draw = function (context, image) {
                 // draw active particles
@@ -228,27 +319,30 @@
                 if (firstFree < firstActive) {
                     for (i = firstActive; i < particles.length; i++)
                         particles[i].draw(context, image);
-                    for (i = 0; i < firstFree; i++)
-                        particles[i].draw(context, image);
+                    for (i = 0; i < firstFree; i++) particles[i].draw(context, image);
                 }
             };
             return ParticlePool;
         })();
-
         /*
          * Putting it all together
          */
         (function (canvas) {
             var context = canvas.getContext('2d'),
                 particles = new ParticlePool(settings.particles.length),
-                particleRate = settings.particles.length / settings.particles.duration, // particles/sec
+                particleRate =
+                    settings.particles.length / settings.particles.duration, // particles/sec
                 time;
 
             // get point on heart with -PI <= t <= PI
             function pointOnHeart(t) {
                 return new Point(
                     160 * Math.pow(Math.sin(t), 3),
-                    130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
+                    130 * Math.cos(t) -
+                    50 * Math.cos(2 * t) -
+                    20 * Math.cos(3 * t) -
+                    10 * Math.cos(4 * t) +
+                    25
                 );
             }
 
@@ -261,8 +355,12 @@
                 // helper function to create the path
                 function to(t) {
                     var point = pointOnHeart(t);
-                    point.x = settings.particles.size / 2 + point.x * settings.particles.size / 350;
-                    point.y = settings.particles.size / 2 - point.y * settings.particles.size / 350;
+                    point.x =
+                        settings.particles.size / 2 +
+                        (point.x * settings.particles.size) / 350;
+                    point.y =
+                        settings.particles.size / 2 -
+                        (point.y * settings.particles.size) / 350;
                     return point;
                 }
                 // create the path
@@ -277,18 +375,7 @@
                 }
                 context.closePath();
                 // create the fill
-                
-                
-                for (let i = 0; i < 6; i++) {
-                     for (let j = 0; j < 6; j++) {
-                        context.fillStyle = `rgb(
-                             ${Math.floor(255 - 52.5 * i)},
-                             ${Math.floor(255 - 52.5 * j)},
-                        0)`;
-                        context.fillRect(j * 50, i * 50, 50, 50);
-                                                               }
-                }
-                context.fillStyle = '#e6005c';
+                context.fillStyle = '#FF5CA4';
                 context.fill();
                 // create the image
                 var image = new Image();
@@ -314,7 +401,12 @@
                 for (var i = 0; i < amount; i++) {
                     var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
                     var dir = pos.clone().length(settings.particles.velocity);
-                    particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x, -dir.y);
+                    particles.add(
+                        canvas.width / 2 + pos.x,
+                        canvas.height / 2 - pos.y,
+                        dir.x,
+                        -dir.y
+                    );
                 }
 
                 // update and draw particles
@@ -335,16 +427,25 @@
                 render();
             }, 10);
         })(document.getElementById('pinkboard'));
-        document.addEventListener("keydown", function (event){
-    if (event.ctrlKey){
-       event.preventDefault();
-    }
-    if(event.keyCode == 123){
-       event.preventDefault();
-    }
-});
-  
-        </script>
-</BODY>
+    </script>
+    <div class="center-text" , style="background-color:rgb(0, 0, 0);
+        width: 100%;
+        height:100%;
+        margin-top: 50%;
+        font-size: 31px;
+        font-style: italic;
+        display: inline-block;
+        /* align-items: center; */
+        justify-content: center;
+        margin-bottom: -110px;
+        text-align: center;">
+       <p> Nguyễn &emsp;&emsp; Hạnh</p>
+       <marquee scrollamount="200" scrolldelay="1000"><span>cần tìm người yêu. Liên hệ Fb : Nth.Hani kiếm 10 người yêu hihi
+    </span></marquee>
+    </div>
+    <audio id="player" controls autoplay loop style="color: rgb(35, 31, 31); height: 50px;width: 100px;">
+        <source src="Cuoi-Cung-Thi-Jack.mp3" type="audio/mp3">
+    </audio>
+</body>
 
-</HTML>
+</html>
